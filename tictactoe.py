@@ -1,4 +1,4 @@
-import random
+from random import randint 
 
 def drawBoard(board):
       # This function prints out the board that it was passed.
@@ -36,18 +36,22 @@ def xPlace(board):
         print 'Thats not a valid spot'
         xPlace(board)
 
+def Think(board):
+    ways = [[1,2,3],[4,5,6],[7,8,9],[1,5,9],[3,5,7],[7,4,1],[8,5,2],[9,6,3]]
+    for blocks in ways:
+        if board[blocks[0]] == board[blocks[1]] and board[blocks[0]] != ' ' and board[blocks[2]] == ' ':
+            return blocks[2]
+        if board[blocks[1]] == board[blocks[2]] and board[blocks[1]] != ' ' and board[blocks[0]] != ' ':
+            return blocks[0]
+        if board[blocks[0]] == board[blocks[2]] and board[blocks[0]] != ' ' and board[blocks[1]] != ' ':
+            return blocks[1]
+    return randint(1,9)
+
 def oPlace(board):
-    where = input("Which spot would you like to place an O? 1-9: ")
-    try:
-        if board[int(where)] != ' ':
-            print 'This spot is already taken'
-            oPlace(board)
-        else:
-            board[int(where)] = 'O'
-            return drawBoard(board)
-    except IndexError:
-        print 'Thats not a valid spot'
-        oPlace(board)
+    where = Think(board)
+    board[where] = 'O'
+    return drawBoard(board)
+
         
 def SpacesLeft(board):
     for x in range (1,10):
