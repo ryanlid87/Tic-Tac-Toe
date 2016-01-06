@@ -21,29 +21,55 @@ def CheckWin(board):
     for blocks in ways:
         if board[blocks[0]] == board[blocks[1]] == board[blocks[2]] and board[blocks[0]] != ' ':
             return board[blocks[0]] + " wins!"
-        else:
-            return 'yay'
+    return 'yay'
 
 def xPlace(board):
     where = input("Which spot would you like to place an X? 1-9: ")
-    if board[int(where)] != ' ':
-        print 'This spot is already taken'
+    try:
+        if board[int(where)] != ' ':
+            print 'This spot is already taken'
+            xPlace(board)
+        else:
+            board[int(where)] = 'X'
+            return drawBoard(board)
+    except IndexError:
+        print 'Thats not a valid spot'
         xPlace(board)
-    else:
-        board[int(where)] = 'X'
-        return drawBoard(board)
+
 def oPlace(board):
     where = input("Which spot would you like to place an O? 1-9: ")
-    if board[int(where)] != ' ':
-        print 'This spot is already taken'
+    try:
+        if board[int(where)] != ' ':
+            print 'This spot is already taken'
+            oPlace(board)
+        else:
+            board[int(where)] = 'O'
+            return drawBoard(board)
+    except IndexError:
+        print 'Thats not a valid spot'
         oPlace(board)
-    else:
-        board[int(where)] = 'O'
-        return drawBoard(board)
+        
+def SpacesLeft(board):
+    for x in range (1,10):
+        if board[x] == ' ':
+            return True
+    return False
+
 def main():
     board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
     drawBoard(board)
-    while CheckWin(board) == 'yay':
+    SpacesLeft(board)
+    while CheckWin(board) == 'yay' and SpacesLeft(board) == True:
         xPlace(board)
+        if CheckWin(board) != 'yay': break
+        if SpacesLeft(board) == False:break
         oPlace(board)
         CheckWin(board)
+    if SpacesLeft(board) == False:
+        print 'It was a tie.'
+    else:
+        print CheckWin(board)
+        
+
+
+
