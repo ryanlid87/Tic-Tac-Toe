@@ -49,7 +49,10 @@ def Think(board):
 
 def oPlace(board):
     where = Think(board)
-    board[where] = 'O'
+    if board[where] == ' ':
+        board[where] = 'O'
+    else:
+        randint(1,9)
     return drawBoard(board)
 
         
@@ -74,6 +77,6 @@ def main():
     else:
         print CheckWin(board)
         
-
+main()
 
 
