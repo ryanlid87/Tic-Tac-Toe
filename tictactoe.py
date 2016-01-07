@@ -41,18 +41,15 @@ def Think(board):
     for blocks in ways:
         if board[blocks[0]] == board[blocks[1]] and board[blocks[0]] != ' ' and board[blocks[2]] == ' ':
             return blocks[2]
-        if board[blocks[1]] == board[blocks[2]] and board[blocks[1]] != ' ' and board[blocks[0]] != ' ':
+        if board[blocks[1]] == board[blocks[2]] and board[blocks[1]] != ' ' and board[blocks[0]] == ' ':
             return blocks[0]
-        if board[blocks[0]] == board[blocks[2]] and board[blocks[0]] != ' ' and board[blocks[1]] != ' ':
+        if board[blocks[0]] == board[blocks[2]] and board[blocks[0]] != ' ' and board[blocks[1]] == ' ':
             return blocks[1]
     return randint(1,9)
 
 def oPlace(board):
     where = Think(board)
-    if board[where] == ' ':
-        board[where] = 'O'
-    else:
-        randint(1,9)
+    board[where] = 'O'
     return drawBoard(board)
 
         
